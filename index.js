@@ -17,7 +17,7 @@ function getAllJokes(req, res){
     let dir = fs.readdirSync(dataPath)
     let allJokes = []
     for(let i = 0; i < dir.length; i++){
-        let file = fs.readFileSync(path.join(__dirname, i+".json"))
+        let file = fs.readFileSync(path.join(dataPath, i+".json"))
         let jokeJson = Buffer.from(file).toString()
         let joke = JSON.parse(jokeJson)
         joke.id = i
