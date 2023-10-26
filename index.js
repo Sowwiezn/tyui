@@ -10,7 +10,7 @@ const server = http.createServer((req, res)=>{
         getAllJokes(req, res)
     }
     if(req.url == '/jokes' && req.method == 'POST'){
-        addJokes(req, res)
+        addJoke(req, res)
     }
     
 })
@@ -48,7 +48,7 @@ function addJoke(req, res) {
     req.on('data', function(chunk) {
         data += chunk;
     });
-    
+
     req.on('end', function() {
         let joke = JSON.parse(data);
         joke.likes = 0;
