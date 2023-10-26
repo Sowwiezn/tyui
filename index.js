@@ -14,15 +14,15 @@ const server = http.createServer((req, res)=>{
 server.listen(3000)
 
 function getAllJokes(req, res){
-    let dir = fs.readdirSync(dataPath)
-    let allJokes = []
-    for(let i = 0; i < dir.length; i++){
-        let file = fs.readFileSync(path.join(dataPath, i+".json"))
-        let jokeJson = Buffer.from(file).toString()
-        let joke = JSON.parse(jokeJson)
-        joke.id = i
+    let dir = fs.readdirSync(dataPath);
+    let allJokes = [];
+    for(let i = 0; i < dir.length; i++) {
+        let file = fs.readFileSync(path.join(dataPath, i+'.json'));
+        let jokeJson = Buffer.from(file).toString();
+        let joke = JSON.parse(jokeJson);
+        joke.id = i;
 
-        allJokes.push(joke)
+        allJokes.push(joke);
     }
-    res.end(JSON.stringify(allJokes))
+    res.end(JSON.stringify(allJokes));
 }
