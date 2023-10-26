@@ -43,7 +43,7 @@ function getAllJokes(req, res){
     res.end(JSON.stringify(allJokes));
 }
 
-function addJokes(){
+function addJokes(req, res){
     let data = ''
     req.on('data', function(chunk){ 
         data += chunk
