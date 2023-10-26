@@ -9,6 +9,10 @@ const server = http.createServer((req, res)=>{
     if(req.url == '/jokes' && req.method == 'GET'){
         getAllJokes(req, res)
     }
+    if(req.url == '/jokes' && req.method == 'POST'){
+        addJokes(req, res)
+    }
+    
 })
 
 server.listen(3000)
@@ -37,4 +41,23 @@ function getAllJokes(req, res){
         }
     }
     res.end(JSON.stringify(allJokes));
+}
+
+function addJokes(){
+    let data = ''
+    req.on('data', function(chunk){ 
+        data += chunk
+    })
+    req.on('end', function(){
+        let joke = JSON.parse(data)
+        joke.likes = 0
+        joke.dislikes = 0
+
+        let dir = fs.readdirSync(dataPath)
+        let fileName = dir.length+'.json'
+        let filePath = path.join(dataPath, fileName)
+        fs.writeFileSync(filePath, JSON.stringify(joke))
+
+        res.end()
+    })
 }
