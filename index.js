@@ -15,8 +15,8 @@ const server = http.createServer((req, res)=>{
     if(req.url.startsWith('/like')){
         like(req, res)
     }
-    if(req.url.startsWith('/dislikes')){
-        dislikes(req, res)
+    if(req.url.startsWith('/dislike')){
+        dislike(req, res)
     }
 })
 
@@ -61,7 +61,7 @@ function addJoke(req, res) {
         let id = params.id
          
         if(id){
-            let filePath = path.join(dataPath, id+'json')
+            let filePath = path.join(dataPath, id+'.json')
             let file = fs.readFileSync(filePath)
             let jokeJSON = Buffer.from(file).toString()
             let joke = JSON.parse(jokeJSON)
@@ -73,12 +73,12 @@ function addJoke(req, res) {
         res.end()
     }
     
-    function dislikes(req, res){
+    function dislike(req, res){
         const params = url.parse(req.url, true).query
         let id = params.id
          
         if(id){
-            let filePath = path.join(dataPath, id+'json')
+            let filePath = path.join(dataPath, id+'.json')
             let file = fs.readFileSync(filePath)
             let jokeJSON = Buffer.from(file).toString()
             let joke = JSON.parse(jokeJSON)
