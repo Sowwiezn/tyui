@@ -12,7 +12,12 @@ const server = http.createServer((req, res)=>{
     if(req.url == '/jokes' && req.method == 'POST'){
         addJoke(req, res)
     }
-    
+    if(req.url.startsWith('/like')){
+        like(req, res)
+    }
+    if(req.url.startsWith('/dislikes')){
+        dislikes(req, res)
+    }
 })
 
 server.listen(3000)
@@ -28,18 +33,6 @@ function getAllJokes(req, res){
 
         allJokes.push(joke);
     }
-    // for(let i = 0; i < dir.length; i++) {
-    //     try {
-    //         let file = fs.readFileSync(path.join(dataPath, dir[i]));
-    //         let jokeJson = Buffer.from(file).toString();
-    //         let joke = JSON.parse(jokeJson);
-    //         joke.id = i;
-    
-    //         allJokes.push(joke);
-    //     } catch (error) {
-    //         console.error(`Ошибка при чтении файла ${dir[i]}: ${error.message}`);
-    //     }
-    // }
     res.end(JSON.stringify(allJokes));
 }
 
@@ -48,17 +41,51 @@ function addJoke(req, res) {
     req.on('data', function(chunk) {
         data += chunk;
     });
-
+    
     req.on('end', function() {
         let joke = JSON.parse(data);
         joke.likes = 0;
         joke.dislikes = 0;
-
+    
         let dir = fs.readdirSync(dataPath);
-        let fileName = dir.length+'.json';
+        let fileName = (dir.length + 1) + '.json'; 
         let filePath = path.join(dataPath, fileName);
         fs.writeFileSync(filePath, JSON.stringify(joke));
-
+    
         res.end();
     });
 }
+    function like(req, res){
+        const url = require('url')
+        const params = url.parse(req.url, true).query
+        let id = params.id
+         
+        if(id){
+            let filePath = path.join(dataPath, id+'json')
+            let file = fs.readFileSync(filePath)
+            let jokeJSON = Buffer.from(file).toString()
+            let joke = JSON.parse(jokeJSON)
+
+            joke.likes++
+
+            fs.writeFileSync(filePath, JSON.stringify(joke))
+        }
+        res.end()
+    }
+    
+    function dislikes(req, res){
+        const params = url.parse(req.url, true).query
+        let id = params.id
+         
+        if(id){
+            let filePath = path.join(dataPath, id+'json')
+            let file = fs.readFileSync(filePath)
+            let jokeJSON = Buffer.from(file).toString()
+            let joke = JSON.parse(jokeJSON)
+
+            joke.dislikes++
+
+            fs.writeFileSync(filePath, JSON.stringify(joke))
+        }
+        res.end()
+    }
