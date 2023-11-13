@@ -23,7 +23,7 @@ header{
 #box{
     background: rgb(67, 142, 155);
     width: 70vh;
-    height: 90px;
+    height: 150px;
     margin: 70px 0 20px 20px;
     padding: 10px;
     border-radius: 10px;
@@ -43,4 +43,11 @@ header{
     width: 300px;
     border: 1px solid black;
     border-radius: 10px;
+}
+#thumb_upB{
+    margin-top: 30px;
+    margin-left: 18vh;
+}
+#thumb_downB{
+    margin-left: 20vh;
 }
