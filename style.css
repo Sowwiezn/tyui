@@ -7,8 +7,40 @@ body{
     background-image: url(img/background.jpg);
 }
 img{
-    width: 60;
+    width: 70px;
+    margin-left: 20px;
 }
 header{
-    background: white;
+    background: rgb(67, 142, 155);
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+}
+#main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+#box{
+    background: rgb(67, 142, 155);
+    width: 70vh;
+    height: 90px;
+    margin: 70px 0 20px 20px;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    font-size: 23px;
+}
+#divH{
+    margin-right: 20px;
+    margin-top: 20px;
+}
+#bttn{
+    width: 70px;
+    margin-left: 10px;
+}
+#inp{
+    height: 35px;
+    width: 300px;
+    border: 1px solid black;
+    border-radius: 10px;
 }
